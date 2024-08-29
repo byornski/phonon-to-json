@@ -1,6 +1,5 @@
 import numpy as np
-import constants
-#from . import constants
+from . import constants
 import spglib 
 
 
