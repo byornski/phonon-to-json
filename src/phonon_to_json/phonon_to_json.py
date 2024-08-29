@@ -1,10 +1,10 @@
 import sys
 import spglib 
-from . import constants
-from .lattice import Lattice
+import constants
+from lattice import Lattice
+#from . import constants
+#from .lattice import Lattice
 import numpy as np
-sys.path.append(".")
-sys.path.append("../castep_outputs")
 import castep_outputs as co
 
 def read_file(filename):
@@ -30,6 +30,7 @@ def read_to_write(r_data, name, formula):
     Returns:
         w_data (dict): data to be written to the .json file
     """
+    print(r_data.keys())
     w_data = {}
     # add repetitions to write data
     w_data["repetitions"] = [1,1,1]
@@ -257,6 +258,6 @@ if __name__ == "__main__":
     name = sys.argv[2]
     formula = sys.argv[3]
 
-    r_data = read_file(filename)
+    r_data = read_file("~/Documents/phonon-to-json/src/phonon_to_json/"+filename)
     w_data = read_to_write(r_data, name, formula)
-    write_file(filename, w_data)
+    write_file("~/Documents/phonon-to-json/src/phonon_to_json/"+filename, w_data)
