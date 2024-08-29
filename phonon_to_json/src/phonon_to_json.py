@@ -1,9 +1,6 @@
 import sys
-import spglib 
-import constants
-from lattice import Lattice
-#from . import constants
-#from .lattice import Lattice
+from . import constants
+from .lattice import Lattice
 import numpy as np
 import castep_outputs as co
 
@@ -30,7 +27,6 @@ def read_to_write(r_data, name, formula):
     Returns:
         w_data (dict): data to be written to the .json file
     """
-    print(r_data.keys())
     w_data = {}
     # add repetitions to write data
     w_data["repetitions"] = [1,1,1]
@@ -204,7 +200,7 @@ def qpoint_separation(qpts,lattice):
         # displacement vector
         d = [q2[0]-q1[0], q2[1]-q1[1], q2[2]-q1[2]]
         sep = np.linalg.norm(d) # length of displacement vector
-        distance = sep + distances[-1]
+        distance = float(sep + distances[-1])
         distances.append(distance)
         inbetween_distances.append(sep)
     return distances, inbetween_distances  
@@ -240,15 +236,18 @@ def fix_the_vectors(vectors,r_data):
     qpt_vectors = []        # contains [qpts] branch_vectors
     branch_vectors = []     # one per branch, contains [branches] ion_vectors
     ion_vectors = []        # one per ion, contains [ions] eigenvectors
-    for i in range(len(vectors[0])):
-        if len(ion_vectors) < r_data["ions"]:
-            ion_vectors.append(vectors[0][i])
-            if len(ion_vectors) == r_data["ions"]:
-                branch_vectors.append(ion_vectors)
-                ion_vectors = []        
-        if len(branch_vectors) == r_data["branches"]:
-            qpt_vectors.append(branch_vectors)
-            branch_vectors = []
+    for i in range(len(vectors)):
+        for j in range(len(vectors[i])):
+            vec = []
+            for k in range(3):
+                vec.append([vectors[i][j][k].real, vectors[i][j][k].imag])
+            if len(ion_vectors) < r_data["ions"]:
+                ion_vectors.append(vec)
+                if len(ion_vectors) == r_data["ions"]:
+                    branch_vectors.append(ion_vectors)
+                    ion_vectors = []
+        qpt_vectors.append(branch_vectors)
+        branch_vectors = []
     return qpt_vectors
 
 
@@ -258,6 +257,6 @@ if __name__ == "__main__":
     name = sys.argv[2]
     formula = sys.argv[3]
 
-    r_data = read_file("~/Documents/phonon-to-json/src/phonon_to_json/"+filename)
+    r_data = read_file(filename)
     w_data = read_to_write(r_data, name, formula)
-    write_file("~/Documents/phonon-to-json/src/phonon_to_json/"+filename, w_data)
+    write_file(filename, w_data)

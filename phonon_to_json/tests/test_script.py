@@ -1,5 +1,7 @@
 #import phonon_to_json as pj
-from src.phonon_to_json import phonon_to_json as pj
+import sys
+print(sys.path)
+from phonon_to_json.src import phonon_to_json as pj
 import os.path
 import filecmp
 
