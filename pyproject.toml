@@ -132,3 +132,22 @@ ban-relative-imports = "all"
 [tool.ruff.lint.per-file-ignores]
 # Tests can use magic values, assertions, and relative imports
 "tests/**/*" = ["PLR2004", "S101", "TID252"]
+
+[tool.coverage.run]
+source_pkgs = ["phonon_to_json", "tests"]
+branch = true
+parallel = true
+omit = [
+  "phonon_to_json/src/__about__.py",
+]
+
+[tool.coverage.paths]
+phonon_to_json = ["phonon_to_json/src/*"]
+tests = ["tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
