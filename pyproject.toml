@@ -23,3 +23,22 @@ classifiers = [
 
 [project.scripts]
 phonon_to_json = "phonon_to_json.cli.phonon_to_json_main:main"
+
+[tool.hatch.envs.default]
+dependencies = [
+  "coverage[toml]>=6.5",
+  "pytest",
+]
+
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:tests}"
+test-cov = "coverage run -m pytest {args:tests}"
+cov-report = [
+  "- coverage combine",
+  "coverage report",
+  "coverage html",
+]
+cov = [
+  "test-cov",
+  "cov-report",
+]
