@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
 name = "phonon-to-json"
-version = "0.0.14"
+dynamic = ["version"]
 dependencies = [
   "numpy",
   "spglib",
@@ -20,6 +20,9 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+
+[tool.hatch.version]
+path = "phonon_to_json/src/__about__.py"
 
 [project.scripts]
 phonon_to_json = "phonon_to_json.cli.phonon_to_json_main:main"
