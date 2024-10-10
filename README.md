@@ -15,12 +15,13 @@ pip install phonon-to-json
 # Command line
 ```phonon-to-json``` is designed to be run as a command line tool. To run:
 ```
-python3 phonon_to_json.py [filename] [name] [formula]
+phonon_to_json [filename] [name] [formula]
 ```
 - ```[filename]``` is the name of the .phonon file (excluding the .phonon extension)
 - ```[name]``` is the name of the compound, as displayed at the top of the [website](https://henriquemiranda.github.io/phononwebsite/phonon.html)
 - ```[formula]``` is the chemical formula of the compound
 
+```[name]``` and ```[formula]``` are optional, if ommited ```[filename]``` will be used
 # As a module
 To use ```phonon-to-json``` as a module import ```json_dumper```:
 ```
