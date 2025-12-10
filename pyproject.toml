@@ -7,7 +7,7 @@ dynamic = ["version"]
 dependencies = [
   "numpy",
   "spglib",
-  "castep_outputs"
+  "castep_outputs=0.1.7"
 ]
 authors = [
   { name="Kit Brown", email="kit.daniel.brown@gmail.com" },
